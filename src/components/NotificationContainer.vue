@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-container" :class="notificationTypeClass">
+  <div class="notification-container">
     <NotificationBar
       v-for="notification in notifications"
       :key="notification.id"
