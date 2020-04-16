@@ -287,6 +287,24 @@
       "date": "2020-03-21T08:13:00.000Z",
       "time": "14:00",
       "attendees": []
+    },
+    {
+      "id": 8166437,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "animal welfare",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "puppy parade",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
