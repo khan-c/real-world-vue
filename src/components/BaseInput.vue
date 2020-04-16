@@ -1,7 +1,12 @@
 <template>
   <div>
     <label for="label">{{ label }}</label>
-    <input :value="value" @input="updateValue" v-bind="$attrs" />
+    <input
+      :value="value"
+      @input="updateValue"
+      v-bind="$attrs"
+      v-on="$listeners"
+    />
   </div>
 </template>
 
