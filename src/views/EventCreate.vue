@@ -22,14 +22,28 @@
         label="Title"
         v-model="event.title"
         class="field"
+        :class="{ error: $v.event.title.$error }"
+        @blur="$v.event.title.$touch()"
       />
+      <template v-if="$v.event.title.$error">
+        <p v-f="!$v.event.title.required" class="errorMessage">
+          Title is required.
+        </p>
+      </template>
       <BaseInput
         type="text"
         placeholder="Add a description"
         label="Description"
         v-model="event.description"
         class="field"
+        :class="{ error: $v.event.description.$error }"
+        @blur="$v.event.description.$touch()"
       />
+      <template v-if="$v.event.description.$error">
+        <p v-f="!$v.event.description.required" class="errorMessage">
+          Description is required.
+        </p>
+      </template>
       <h3>Where is your event?</h3>
       <BaseInput
         type="text"
@@ -37,20 +51,53 @@
         label="Location"
         v-model="event.location"
         class="field"
+        :class="{ error: $v.event.location.$error }"
+        @blur="$v.event.location.$touch()"
       />
+      <template v-if="$v.event.location.$error">
+        <p v-f="!$v.event.location.required" class="errorMessage">
+          Location is required.
+        </p>
+      </template>
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
-        <DatePicker v-model="event.date" placeholder="Select a date" />
+        <DatePicker
+          v-model="event.date"
+          placeholder="Select a date"
+          @closed="$v.event.date.$touch()"
+          :input-class="{ error: $v.event.date.$error }"
+        />
       </div>
+      <template v-if="$v.event.date.$error">
+        <p v-f="!$v.event.date.required" class="errorMessage">
+          Date is required.
+        </p>
+      </template>
       <BaseSelect
         label="Select a time"
         :options="times"
         v-model="event.time"
         class="field"
+        :class="{ error: $v.event.time.$error }"
+        @blur="$v.event.time.$touch()"
       />
+      <template v-if="$v.event.time.$error">
+        <p v-f="!$v.event.time.required" class="errorMessage">
+          Time is required.
+        </p>
+      </template>
       <!-- <input type="submit" class="button -fill-gradient" value="Submit" /> -->
-      <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
+      <BaseButton
+        type="submit"
+        buttonClass="-fill-gradient"
+        :disabled="$v.$anyError"
+      >
+        Submit
+      </BaseButton>
+      <p v-if="$v.$anyError" class="errorMessage">
+        Please fill out the required field(s).
+      </p>
     </form>
   </div>
 </template>
@@ -87,19 +134,22 @@ export default {
   },
   methods: {
     createEvent() {
-      NProgress.start()
-      this.$store
-        .dispatch('event/createEvent', this.event)
-        .then(() => {
-          this.$router.push({
-            name: 'event-show',
-            params: { id: this.event.id }
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        NProgress.start()
+        this.$store
+          .dispatch('event/createEvent', this.event)
+          .then(() => {
+            this.$router.push({
+              name: 'event-show',
+              params: { id: this.event.id }
+            })
+            this.event = this.createFreshEvent()
           })
-          this.event = this.createFreshEvent()
-        })
-        .catch(() => {
-          NProgress.done()
-        })
+          .catch(() => {
+            NProgress.done()
+          })
+      }
     },
     createFreshEvent() {
       const user = this.$store.state.user.user

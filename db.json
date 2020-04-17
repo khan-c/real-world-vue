@@ -305,6 +305,42 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 3620322,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
+    },
+    {
+      "id": 3060887,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "nature",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "magic exploration",
+      "description": "adventure time",
+      "location": "mount raven",
+      "date": "2020-05-01T06:18:00.000Z",
+      "time": "7:00",
+      "attendees": []
     }
   ]
 }
